@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/04/29 08:13:11 by robhak           ###   ########.fr       */
+/*   Updated: 2023/04/29 08:41:21 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@
 
 # define BUFFER_SIZE 42
 
-char *get_next_line(int fd);
-int read_until_newline(int fd, char *buffer, int *buffer_index, int *buffer_size, char *line);
-char *ft_realloc(char *ptr, size_t old_size, size_t new_size);
-void *ft_memcpy(void *dst, const void *src, size_t n);
+char 	*get_next_line(int fd);
+size_t	gnl_strlen(const char *s)
+char	*gnl_strjoin(char const *s1, char const *s2)
+char	*gnl_strdup(const char *s)
 
 #endif

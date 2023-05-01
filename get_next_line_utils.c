@@ -6,74 +6,55 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/04/29 08:14:11 by robhak           ###   ########.fr       */
+/*   Updated: 2023/04/29 20:57:34 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_memcpy(void *dst, const void *src, size_t n)
+size_t	gnl_strlen(const char *s)
 {
-    unsigned char *dst_copy;
-    const unsigned char *src_copy;
+	size_t	len;
 
-    dst_copy = dst;
-    src_copy = src;
-    while (n--)
-        *dst_copy++ = *src_copy++;
-    return (dst);
+	len = 0;
+	while (s[len])
+		len++;
+	return (len);
 }
 
-char	*ft_realloc(char *ptr, size_t old_size, size_t new_size)
+char	*gnl_strjoin(char const *s1, char const *s2)
 {
-    char *new_ptr;
+	char	*joined;
+	size_t	len1;
+	size_t	len2;
 
-    new_ptr = malloc(new_size);
-    if (new_ptr == NULL)
-    {
-        free(ptr);
-        return (NULL);
-    }
-    if (ptr != NULL)
-    {
-        ft_memcpy(new_ptr, ptr, old_size);
-        free(ptr);
-    }
-    return (new_ptr);
+	if (!s1)
+		return (gnl_strdup(s2));	
+	if (!s2)
+		return (NULL);
+	len1 = gnl_strlen(s1);
+	len2 = gnl_strlen(s2);
+	if (!(joined = malloc(sizeof(char) * (len1 + len2 + 1))))
+		return (NULL);
+	for (size_t i = 0; i < len1; i++)
+		joined[i] = s1[i];
+	for (size_t i = 0; i < len2; i++)
+		joined[len1 + i] = s2[i];
+	joined[len1 + len2] = '\0';
+	free((char *)s1);
+	return (joined);
 }
 
-int	read_until_newline(int fd, char *buffer, int *buffer_index, int *buffer_size, char *line)
+char	*gnl_strdup(const char *s)
 {
-    int i;
-    int n;
+	char	*dup;
+	size_t	len;
 
-    i = 0;
-    while (1)
-    {
-        if (*buffer_index >= *buffer_size)
-        {
-            n = read(fd, buffer, BUFFER_SIZE);
-            if (n == -1)
-                return (-1);
-            if (n == 0)
-                return (i);
-            *buffer_index = 0;
-            *buffer_size = n;
-        }
-        if (buffer[*buffer_index] == '\n')
-        {
-            line[i] = '\n';
-            *buffer_index += 1;
-            return (i + 1);
-        }
-        line[i] = buffer[*buffer_index];
-        *buffer_index += 1;
-        i += 1;
-        if (i % BUFFER_SIZE == 0)
-        {
-            line = ft_realloc(line, i, i + BUFFER_SIZE);
-            if (line == NULL)
-                return (-1);
-        }
-    }
+	len = gnl_strlen(s);
+	if (!(dup = malloc(sizeof(char) * (len + 1))))
+		return (NULL);
+	for (size_t i = 0; i < len; i++)
+		dup[i] = s[i];
+	dup[len] = '\0';
+	return (dup);
 }
