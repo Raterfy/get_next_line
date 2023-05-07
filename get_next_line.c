@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/02 00:18:00 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/02 00:37:46 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,29 +14,36 @@
 
 char	*get_next_line(int fd)
 {
-	static char	*rest[4096];
-	char		buf[BUFFER_SIZE + 1];
-	ssize_t		rd;
+	static char	*buf[OPEN_MAX];
 	char		*line;
-	char		*tmp;
+	ssize_t		nb_char_read;
 
-	if (read(fd, buf, 0) < 0 || BUFFER_SIZE < 1 || fd < 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd > OPEN_MAX)
 		return (NULL);
-	line = gnl_strdup(rest[fd]);
-	while (!gnl_strchr(rest[fd], '\n') && (rd = read(fd, buf, BUFFER_SIZE)) > 0)
+	if (!buf[fd])
+		buf[fd] = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
+	if (!buf[fd])
+		return (NULL);
+	line = ft_strdup("");
+	if (!line)
+		return (NULL);
+	while (!ft_strchr(buf[fd], '\n'))
 	{
-		buf[rd] = '\0';
-		tmp = gnl_strjoin(line, buf);
-		free(line);
-		line = tmp;
+		nb_char_read = read(fd, buf[fd], BUFFER_SIZE);
+		if (nb_char_read <= 0)
+			break ;
+		buf[fd][nb_char_read] = '\0';
+		line = ft_strjoin_free(line, buf[fd]);
+		if (!line)
+			return (NULL);
 	}
-	if (rd < 0 || !line)
+	if (*buf[fd] == '\0')
+	{
+		free(buf[fd]);
+		buf[fd] = NULL;
 		return (NULL);
-	tmp = gnl_substr(line, 0, gnl_strlen(line));
-	if (gnl_strchr(line, '\n'))
-		rest[fd] = gnl_substr(line, gnl_strchr(line, '\n') - line + 1, gnl_strlen(line) - gnl_strchr(line, '\n') - 1);
-	else
-		rest[fd] = NULL;
-	free(line);
-	return (tmp);
+	}
+	line = ft_strchr_dup(buf[fd], '\n');
+	ft_strcpy(buf[fd], ft_strchr(buf[fd], '\n') + 1);
+	return (line);
 }

@@ -6,55 +6,87 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/04/29 20:57:34 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/02 00:33:27 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	gnl_strlen(const char *s)
+int	ft_strlen(char s)
 {
-	size_t	len;
+	int	i;
 
-	len = 0;
-	while (s[len])
-		len++;
-	return (len);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-char	*gnl_strjoin(char const *s1, char const *s2)
+char	*ft_strdup(const char *s1)
 {
-	char	*joined;
-	size_t	len1;
-	size_t	len2;
-
-	if (!s1)
-		return (gnl_strdup(s2));	
-	if (!s2)
-		return (NULL);
-	len1 = gnl_strlen(s1);
-	len2 = gnl_strlen(s2);
-	if (!(joined = malloc(sizeof(char) * (len1 + len2 + 1))))
-		return (NULL);
-	for (size_t i = 0; i < len1; i++)
-		joined[i] = s1[i];
-	for (size_t i = 0; i < len2; i++)
-		joined[len1 + i] = s2[i];
-	joined[len1 + len2] = '\0';
-	free((char *)s1);
-	return (joined);
-}
-
-char	*gnl_strdup(const char *s)
-{
-	char	*dup;
+	char	*str;
 	size_t	len;
 
-	len = gnl_strlen(s);
-	if (!(dup = malloc(sizeof(char) * (len + 1))))
+	len = ft_strlen(s1) + 1;
+	str = (char *)malloc(len);
+	if (!str)
 		return (NULL);
-	for (size_t i = 0; i < len; i++)
-		dup[i] = s[i];
-	dup[len] = '\0';
-	return (dup);
+	ft_memcpy(str, s1, len);
+	return (str);
+}
+
+char	*ft_strjoin_free(char *s1, char *s2)
+{
+	char	*str;
+
+	if (!s1 || !s2)
+		return (NULL);
+	str = (char *)malloc(ft_strlen(s1) + ft_strlen(s2) + 1);
+	if (!str)
+	{
+		free(s1);
+		free(s2);
+		return (NULL);
+	}
+	ft_strcpy(str, s1);
+	ft_strcpy(str + ft_strlen(s1), s2);
+	free(s1);
+	return (str);
+}
+
+char	*ft_strchr_dup(const char *s, int c)
+{
+	size_t	i;
+	char	*str;
+
+	i = 0;
+	while (s[i] && s[i] != (char)c)
+		i++;
+	str = (char *)malloc(i + 2);
+	if (!str)
+		return (NULL);
+	i = 0;
+	while (s[i] && s[i] != (char)c)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	if (s[i] == (char)c)
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (str);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void	*ptr;
+
+	ptr = malloc(count * size);
+	if (!ptr)
+		return (NULL);
+	ft_bzero(ptr, count * size);
+	return (ptr);
 }
