@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 10:03:27 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 11:12:43 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,5 @@
 # include<string.h>
 # include <stdarg.h>
 # include <fcntl.h>
-
-
 
 #endif
