@@ -6,11 +6,31 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 00:20:05 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 00:32:33 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+
+char	*gnl_strdup(const char *s)
+{
+	size_t	len;
+	char	*str;
+
+	len = ft_strlen(s) + 1;
+	str = (char *)malloc(len);
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (NULL);
+}
 
 static char	*read_line(int fd, char *buffer, size_t buffer_size)
 {
