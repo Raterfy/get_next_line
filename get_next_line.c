@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 12:16:45 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 13:16:05 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ char	*get_next_line(int fd)
 			free (save);
 			save = NULL;
 		}
-		else
+		else 
 		{
 			while (buffer[i] && buffer[i] != "\n")
 				i++;
@@ -71,9 +71,33 @@ char	*get_next_line(int fd)
 			if(!line)
 				return (NULL);
 			i = 0;
-			while ()
+			while (buffer[i] && buffer[i] != "\n")
+			{
+				line[j] = buffer[i];
+				i++;
+				j++;
+			}
+			line[j] = "\0";
+			if (buffer[i] != "\n")
+			{
+				save = malloc(sizeof(char) * (BUFFER_SIZE - i + 1));
+				if (!save)
+					return (NULL);
+				j = 0;
+				while(buffer[i])
+				{
+					save[j] = buffer[i];
+					i++;
+					j++;
+				}
+				save[j] = "\0";
+				return (line);
+			}
+			free (save);
+			save = NULL;
 		}
 	}
+	return (buffer);
 }
 
 int main(void)
