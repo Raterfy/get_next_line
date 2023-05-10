@@ -6,16 +6,16 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 14:30:02 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:43:22 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char *save(char *save, char *buffer)
+/*char *save(char *save, char *buffer)
 {
 	
-}
+}*/
 
 char	*get_next_line(int fd)
 {
@@ -40,7 +40,7 @@ char	*get_next_line(int fd)
 	{
 		if (save)//cas ou la variable statique save n'est pas NULL;
 		{
-			while (save[i] && save[i] != '\n');
+			while (save[i] && save[i] != '\n')
 				i++;
 			line = malloc(sizeof(char) * (i + 1));
 			if (!line)
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 			save = NULL;
 		}
 	}
-	return (buffer);
+	return (line);
 }
 
 int main(void)
@@ -114,7 +114,9 @@ int main(void)
 		perror("open");
 		exit(EXIT_FAILURE);
 	}
+	printf("%s\n", get_next_line(fd));
 	char buffer[1];
+	
 	int n;
 	while((n = read(fd, buffer, 1)) > 0)
 	{
