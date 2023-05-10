@@ -33,9 +33,9 @@ int main(void)
 		perror("open");
 		exit(EXIT_FAILURE);
 	}
-	char buffer[5];
+	char buffer[1];
 	int n;
-	while((n = read(fd, buffer, 5)) > 0)
+	while((n = read(fd, buffer, 1)) > 0)
 	{
 		write(STDOUT_FILENO, buffer, n);
 	}
