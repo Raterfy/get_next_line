@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 13:16:05 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 13:29:13 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,54 +31,54 @@ char	*get_next_line(int fd)
 	if (bytes_read < 0)
 		return (NULL);
 	buffer[bytes_read] = '\0';
-	while (1)
+	while (bytes_read > 0)
 	{
 		if (save)//cas ou la variable statique save n'est pas NULL;
 		{
-			while (save[i] && save[i] != "\n");
+			while (save[i] && save[i] != '\n');
 				i++;
 			line = malloc(sizeof(char) * (i + 1));
 			if (!line)
 				return (NULL);
 			i = 0;
-			while(save[i] && save[i] != "\n")
+			while(save[i] && save[i] != '\n')
 			{
 				line[j] = save[i];
 				j++;
 				i++;
 			}
-			line[j] = "\0";
-			if(save[i] == "\n")
+			line[j] = '\0';
+			if(save[i] == '\n')
 			{
 				i++;
 				j = 0;
-				while(save[i]&& save[i] != "\n")
+				while(save[i]&& save[i] != '\n')
 				{
 					buffer[j] = save[i];
 					i++;
 					j++;
 				}
-				buffer[j] = "\0";
+				buffer[j] = '\0';
 			}
 			free (save);
 			save = NULL;
 		}
 		else 
 		{
-			while (buffer[i] && buffer[i] != "\n")
+			while (buffer[i] && buffer[i] != '\n')
 				i++;
 			line = malloc(sizeof(char) * (i + 1));
 			if(!line)
 				return (NULL);
 			i = 0;
-			while (buffer[i] && buffer[i] != "\n")
+			while (buffer[i] && buffer[i] != '\n')
 			{
 				line[j] = buffer[i];
 				i++;
 				j++;
 			}
-			line[j] = "\0";
-			if (buffer[i] != "\n")
+			line[j] = '\0';
+			if (buffer[i] != '\n')
 			{
 				save = malloc(sizeof(char) * (BUFFER_SIZE - i + 1));
 				if (!save)
@@ -90,7 +90,7 @@ char	*get_next_line(int fd)
 					i++;
 					j++;
 				}
-				save[j] = "\0";
+				save[j] = '\0';
 				return (line);
 			}
 			free (save);
