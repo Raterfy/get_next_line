@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 11:55:06 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 12:16:45 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ char	*get_next_line(int fd)
 {
 	static char	*save;
 	char		buffer[BUFFER_SIZE + 1];
-	int			bytes_read;//nombre de byte lu par read
-	char		*line;
-	int			i;// se balader dans le buffer
-	int			j;// copier les octets dans la lgne
+	int			bytes_read; //nombre de byte lu par read
+	char		*line; //str qui contient la ligne lu
+	int			i; //se balader dans le buffer
+	int			j; //copier les octets dans la lgne
 
 	i = 0;
 	j = 0;
@@ -65,13 +65,37 @@ char	*get_next_line(int fd)
 		}
 		else
 		{
+			while (buffer[i] && buffer[i] != "\n")
+				i++;
+			line = malloc(sizeof(char) * (i + 1));
+			if(!line)
+				return (NULL);
+			i = 0;
 			while ()
 		}
 	}
 }
 
-int main()
+int main(void)
 {
-	int	fd = open("test.txt", O_RDONLY);
-	int	n;
+	char *filename = "test.txt";
+	int fd = open(filename, O_RDONLY);
+	if(fd == -1)
+	{
+		perror("open");
+		exit(EXIT_FAILURE);
+	}
+	char buffer[1];
+	int n;
+	while((n = read(fd, buffer, 1)) > 0)
+	{
+		write(STDOUT_FILENO, buffer, n);
+	}
+	if (n == -1)
+	{
+		perror("read");
+		exit(EXIT_FAILURE);
+	}
+	close (fd);
+	return 0;
 }
