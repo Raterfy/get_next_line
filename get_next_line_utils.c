@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 22:58:52 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 23:53:22 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,4 +45,32 @@ char	*gnl_strjoin(char *s1, char *s2)
 	}
 	s[i + j] = '\0';
 	return (s);
+}
+
+void	*ft_realloc(void *ptr, size_t size)
+{
+	void	*new_ptr;
+	char	*p;
+	char	*q;
+	size_t	i;
+
+	if (size == 0)
+	{
+		free(ptr);
+		return (NULL);
+	}
+	if (!ptr)
+		return (malloc(size));
+	new_ptr = malloc(size);
+	if (!new_ptr)
+		return (NULL);
+	p = (char *)ptr;
+	q = (char *)new_ptr;
+	while (i < size && i < sizeof(*ptr))
+	{
+		q[i] = p[i];
+		i++;
+	}
+	free(ptr);
+	return (new_ptr);
 }
