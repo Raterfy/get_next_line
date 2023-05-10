@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 23:53:22 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 00:05:05 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	return (s);
 }
 
-void	*ft_realloc(void *ptr, size_t size)
+void	*gnl_realloc(void *ptr, size_t size)
 {
 	void	*new_ptr;
 	char	*p;
