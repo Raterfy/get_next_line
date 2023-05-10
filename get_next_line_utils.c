@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 00:27:39 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 00:36:47 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,29 @@ int	gnl_strlen(char *s)
 	return (i);
 }
 
-char	*gnl_strcat(char *dest, char *src)
+char	*gnl_strjoin(char *s1, char *s2)
 {
+	char	*s;
 	int		i;
 	int		j;
 
+	s = malloc(gnl_stren(s1) + gnl_strlen(s2) + 1);
+	if (!s)
+		return (NULL);
 	i = 0;
-	while (dest[i])
-		i++;
-	while (src[j])
+	while (s1[i])
 	{
-		dest[i] = src[j];
-		i++;
+		s[i] = s1[i];
+	}
+	free (s1);
+	j = 0;
+	while (s2[j])
+	{
+		s[i + j] = s2[j];
 		j++;
 	}
-	dest = '\0';
-	return (dest);
+	s[i + j] = '\0';
+	return (s);
 }
 
 void	*gnl_realloc(void *ptr, size_t size)
