@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 14:43:22 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:44:58 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 			save = NULL;
 		}
 	}
-	return (line);
+	return (NULL);
 }
 
 int main(void)
