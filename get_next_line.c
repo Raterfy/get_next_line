@@ -6,11 +6,16 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 13:29:13 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 14:07:12 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+char *save(char *save, char *buffer)
+{
+	
+}
 
 char	*get_next_line(int fd)
 {
