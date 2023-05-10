@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 00:05:05 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 00:25:49 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,29 +22,22 @@ int	gnl_strlen(char *s)
 	return (i);
 }
 
-char	*gnl_strjoin(char *s1, char *s2)
+char	*gnl_strcat(char *dest, char *src)
 {
-	char	*s;
 	int		i;
 	int		j;
 
-	s = malloc(gnl_stren(s1) + gnl_strlen(s2) + 1);
-	if (!s)
-		return (NULL);
 	i = 0;
-	while (s1[i])
+	while (dest[i])
+		i++;
+	while (src[j])
 	{
-		s[i] = s1[i];
-	}
-	free (s1);
-	j = 0;
-	while (s2[j])
-	{
-		s[i + j] = s2[j];
+		dest[i] = src[j];
+		i++;
 		j++;
 	}
-	s[i + j] = '\0';
-	return (s);
+	dest = '\0';
+	return (dest);
 }
 
 void	*gnl_realloc(void *ptr, size_t size)
@@ -73,4 +66,35 @@ void	*gnl_realloc(void *ptr, size_t size)
 	}
 	free(ptr);
 	return (new_ptr);
+}
+
+char	*gnl_strchr(const char *s, int c)
+{
+	while (*s)
+	{
+		if (*s == c)
+			return ((char *)s);
+		s++;
+	}
+	if(*s == c)
+		return ((char *)s);
+	return (NULL);
+}
+
+char	*gnl_strncpy(char *dest, const char *src, size_t n)
+{
+	size_t	i;
+
+	i = 0;
+	while (src[i] && i < n)
+	{
+		dest[i] = src[i];
+		i++;
+	}
+	while (i < n)
+	{
+		dest[i] = '\0';
+		i++;
+	}
+	return (dest);
 }
