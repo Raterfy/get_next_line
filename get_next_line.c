@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/10 14:44:58 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/10 15:04:58 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	*get_next_line(int fd)
 	char		*line; //str qui contient la ligne lu
 	int			i; //se balader dans le buffer
 	int			j; //copier les octets dans la lgne
-
 	i = 0;
 	j = 0;
 	line = NULL;
@@ -38,7 +37,7 @@ char	*get_next_line(int fd)
 	buffer[bytes_read] = '\0';
 	while (1)
 	{
-		if (save)//cas ou la variable statique save n'est pas NULL;
+		if (save) //cas ou la variable statique save n'est pas NULL;
 		{
 			while (save[i] && save[i] != '\n')
 				i++;
@@ -46,18 +45,18 @@ char	*get_next_line(int fd)
 			if (!line)
 				return (NULL);
 			i = 0;
-			while(save[i] && save[i] != '\n')
+			while (save[i] && save[i] != '\n')
 			{
 				line[j] = save[i];
 				j++;
 				i++;
 			}
 			line[j] = '\0';
-			if(save[i] == '\n')
+			if (save[i] == '\n')
 			{
 				i++;
 				j = 0;
-				while(save[i]&& save[i] != '\n')
+				while (save[i] && save[i] != '\n')
 				{
 					buffer[j] = save[i];
 					i++;
@@ -68,12 +67,12 @@ char	*get_next_line(int fd)
 			free (save);
 			save = NULL;
 		}
-		else 
+		else
 		{
 			while (buffer[i] && buffer[i] != '\n')
 				i++;
 			line = malloc(sizeof(char) * (i + 1));
-			if(!line)
+			if (!line)
 				return (NULL);
 			i = 0;
 			while (buffer[i] && buffer[i] != '\n')
@@ -89,7 +88,7 @@ char	*get_next_line(int fd)
 				if (!save)
 					return (NULL);
 				j = 0;
-				while(buffer[i])
+				while (buffer[i])
 				{
 					save[j] = buffer[i];
 					i++;
@@ -105,7 +104,7 @@ char	*get_next_line(int fd)
 	return (NULL);
 }
 
-int main(void)
+int	main(void)
 {
 	char *filename = "test.txt";
 	int fd = open(filename, O_RDONLY);
@@ -128,5 +127,5 @@ int main(void)
 		exit(EXIT_FAILURE);
 	}
 	close (fd);
-	return 0;
+	return (0);
 }
