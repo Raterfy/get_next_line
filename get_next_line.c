@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 14:19:50 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:50:58 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,27 @@ char	*get_next_line(int fd)
 {
 	static char	*residual_string;
 	char		*line;
-	char		*new_line;
+	char		*newline;
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
+	if (!residual_string || !gnl_strchr(residual_string, '\n'))
+		residual_string = gnl_readline(residual_string, fd);
+	if (!residual_string)
+		return (NULL);
+	if (newline)
+	{
+		line = gnl_strncpy(gnl_strdup(residual_string), 
+			residual_string, newline - residual_string + 1);
+		residual_string = gnl_strcpy(residual_string, newline + 1);
+	}
+	else
+	{
+		line = gnl_strdup(residual_string);
+		free(residual_string);
+		residual_string = NULL;
+	}
+	return (line);
 }
 
 int	main(int ac, char **av)
