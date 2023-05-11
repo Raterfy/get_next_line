@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 15:05:54 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:11:44 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,13 @@ int	main(int ac, char **av)
 
 	(void)ac;
 	fd = open(av[1], O_RDONLY);
-	line = "";
-	while (line != NULL)
+	if (fd < 0)
+		return (-1);
+	while ((line = get_next_line(fd)))
 	{
-		line = get_next_line(fd);
 		printf("%s\n", line);
+		free(line);
 	}
+	close(fd);
 	return (0);
 }
