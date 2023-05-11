@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 15:11:44 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 16:01:35 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ char	*get_next_line(int fd)
 	newline = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (!residual_string || !gnl_strchr(residual_string, '\n'))
+	if (!residual_string || !(newline = gnl_strchr(residual_string, '\n')))
 		residual_string = gnl_readline(residual_string, fd);
 	if (!residual_string)
 		return (NULL);
