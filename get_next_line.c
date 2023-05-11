@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 00:32:33 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 10:11:42 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static char	*read_line(int fd, char *buffer, size_t buffer_size)
 	char	*line;
 	char	*residual_string;
 
-	while ((byte_read = read(fd, buffer,buffer_size)) > 0)
+	while ((byte_read = read(fd, buffer, buffer_size)) > 0)
 	{
 		buffer[byte_read] = '\0';
 		*newline = gnl_strchr(buffer, '\n');
