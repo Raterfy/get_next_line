@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 00:36:47 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 12:13:51 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,4 +104,25 @@ char	*gnl_strncpy(char *dest, const char *src, size_t n)
 		i++;
 	}
 	return (dest);
+}
+
+char	*gnl_strdup(const char *s)
+{
+	size_t	len;
+	char	*str;
+	int		i;
+
+	i = 0;
+	len = ft_strlen(s) + 1;
+	str = (char *)malloc(len);
+	if (str == NULL)
+		return (NULL);
+	i = 0;
+	while (s[i])
+	{
+		str[i] = s[i];
+		i++;
+	}
+	str[i] = '\0';
+	return (NULL);
 }
