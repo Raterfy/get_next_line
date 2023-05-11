@@ -6,12 +6,16 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 14:08:47 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:59:03 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# ifndef GET_NEXT_LINE_H
+#ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
+
+# ifndef BUFFER_SIZE	
+#  define BUFFER_SIZE 1048
+# endif
 
 # include <sys/types.h>
 # include <sys/stat.h>
@@ -20,9 +24,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
-# ifndef BUFFER_SIZE
-# define BUFFER_SIZE 1048
-#endif
 
 int		gnl_strlen(char *s);
 char	*gnl_strcat(char *dest, char *src);

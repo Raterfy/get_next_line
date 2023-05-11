@@ -6,13 +6,13 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 14:50:58 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 15:05:54 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-static char	gnl_readline(char *residual_str, int fd)
+static char	*gnl_readline(char *residual_str, int fd)
 {
 	char	buffer[BUFFER_SIZE + 1];
 	char	*newline;
@@ -43,6 +43,7 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		*newline;
 
+	newline = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	if (!residual_string || !gnl_strchr(residual_string, '\n'))
@@ -51,8 +52,8 @@ char	*get_next_line(int fd)
 		return (NULL);
 	if (newline)
 	{
-		line = gnl_strncpy(gnl_strdup(residual_string), 
-			residual_string, newline - residual_string + 1);
+		line = gnl_strncpy(gnl_strdup(residual_string),
+				residual_string, newline - residual_string + 1);
 		residual_string = gnl_strcpy(residual_string, newline + 1);
 	}
 	else
@@ -72,10 +73,10 @@ int	main(int ac, char **av)
 	(void)ac;
 	fd = open(av[1], O_RDONLY);
 	line = "";
-	while(line != NULL)
+	while (line != NULL)
 	{
 		line = get_next_line(fd);
-		printf("%s\n",line);
+		printf("%s\n", line);
 	}
 	return (0);
 }

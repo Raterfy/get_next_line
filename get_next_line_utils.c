@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 13:19:08 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:53:30 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*gnl_strchr(const char *s, int c)
 			return ((char *)s);
 		s++;
 	}
-	if(*s == c)
+	if (*s == c)
 		return ((char *)s);
 	return (NULL);
 }
