@@ -6,49 +6,45 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 12:56:33 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:19:50 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-/*static char	append_line(char *line, char *buff)
+static char	gnl_readline(char *residual_str, int fd)
 {
-	char	*new_line;
+	char	buffer[BUFFER_SIZE + 1];
+	char	*newline;
+	char	*tmp;
+	int		byte_read;
 
-	new_line = gnl_strjoin(line, buff);
-	free(line);
-	return (new_line);
-}*/
+	byte_read = read(fd, buffer, BUFFER_SIZE);
+	newline = gnl_strchr(residual_str, '\n');
+	while (byte_read > 0)
+	{
+		buffer[byte_read] = '\0';
+		tmp = gnl_strjoin(buffer, residual_str);
+		free(residual_str);
+		residual_str = tmp;
+		if (newline)
+			break ;
+	}
+	if (byte_read <= 0 && !newline)
+		return (NULL);
+	if (newline)
+		*newline = '\0';
+	return (residual_str);
+}
 
 char	*get_next_line(int fd)
 {
 	static char	*residual_string;
 	char		*line;
-	ssize_t		byte_read;
-	char		*buffer;
+	char		*new_line;
 
-	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	line = gnl_strdup(residual_string);
-	while (!gnl_strchr(line, '\n'))
-	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read <= 0)
-		{
-			if (byte_read == 0 && line[0] != '\0')
-				return (line);
-			free(residual_string);
-			residual_string = NULL;
-			return (NULL);
-		}
-		buffer[byte_read] = '\0';
-		line = gnl_strjoin(line, buffer);
-	}
-	residual_string = gnl_strdup(gnl_strchr(line, '\n') + 1);
-	*(gnl_strchr(line, '\n'))  = '\0';
-	return (line);
 }
 
 int	main(int ac, char **av)

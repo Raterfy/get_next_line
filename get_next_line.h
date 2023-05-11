@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 13:19:19 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 14:08:47 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <stddef.h>
 # ifndef BUFFER_SIZE
 # define BUFFER_SIZE 1048
+#endif
 
 int		gnl_strlen(char *s);
 char	*gnl_strcat(char *dest, char *src);
@@ -32,5 +33,4 @@ char	*gnl_strjoin(char *s1, char *s2);
 char	*gnl_strdup(const char *s);
 char	*gnl_strcpy(char *dest, const char *src);
 
-#endif
 #endif
