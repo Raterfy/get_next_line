@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 12:54:38 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 12:56:33 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ char	*get_next_line(int fd)
 	ssize_t		byte_read;
 	char		*buffer;
 
+	buffer = NULL;
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = gnl_strdup(residual_string);
@@ -36,7 +37,7 @@ char	*get_next_line(int fd)
 		byte_read = read(fd, buffer, BUFFER_SIZE);
 		if (byte_read <= 0)
 		{
-			if (byte_read == 0 & line[0] !!= '\0')
+			if (byte_read == 0 && line[0] != '\0')
 				return (line);
 			free(residual_string);
 			residual_string = NULL;
@@ -58,7 +59,7 @@ int	main(int ac, char **av)
 	(void)ac;
 	fd = open(av[1], O_RDONLY);
 	line = "";
-	while(line != NULL);
+	while(line != NULL)
 	{
 		line = get_next_line(fd);
 		printf("%s\n",line);

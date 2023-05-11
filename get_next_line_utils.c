@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 12:13:51 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/11 13:19:08 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*gnl_strjoin(char *s1, char *s2)
 	int		i;
 	int		j;
 
-	s = malloc(gnl_stren(s1) + gnl_strlen(s2) + 1);
+	s = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
 	if (!s)
 		return (NULL);
 	i = 0;
@@ -54,6 +54,7 @@ void	*gnl_realloc(void *ptr, size_t size)
 	char	*q;
 	size_t	i;
 
+	i = 0;
 	if (size == 0)
 	{
 		free(ptr);
@@ -113,8 +114,10 @@ char	*gnl_strdup(const char *s)
 	int		i;
 
 	i = 0;
-	len = ft_strlen(s) + 1;
-	str = (char *)malloc(len);
+	len = 0;
+	while (*s)
+		len++;
+	str = (char *)malloc(len + 1);
 	if (str == NULL)
 		return (NULL);
 	i = 0;
@@ -125,4 +128,12 @@ char	*gnl_strdup(const char *s)
 	}
 	str[i] = '\0';
 	return (NULL);
+}
+
+char	*gnl_strcpy(char *dest, const char *src)
+{
+	while (*src)
+		*dest++ = *src++;
+	*dest = '\0';
+	return (dest);
 }
