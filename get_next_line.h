@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 14:59:03 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 07:39:50 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE	
-#  define BUFFER_SIZE 1048
+#  define BUFFER_SIZE 42
 # endif
 
 # include <sys/types.h>
