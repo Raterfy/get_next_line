@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/12 14:18:36 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:18:37 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ void	*gnl_memcpy(void *dest, const void *src, size_t n)
 	src_cpy = src;
 	while (n-- > 0)
 		*dest_cpy++ = *src_cpy++;
+	*dest_cpy = '\0';
 	return (dest);
 }
 

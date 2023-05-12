@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/12 15:35:00 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 16:30:07 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }*/
-
-/*static int	read_buffer(int fd, char *buffer, char **residual_string)
+/*
+static int	read_buffer(int fd, char *buffer, char **residual_string)
 {
 	int	bytes_read;
 
@@ -127,7 +127,7 @@ static char	*get_next_line_loop(int fd, char **residual_string)
 	new_line = extract_line(residual_string);
 	tmp = *residual_string;
 	*residual_string = NULL;
-	free(tmp);
+//	free(tmp);
 	return (new_line);
 }
 
@@ -140,7 +140,7 @@ char	*get_next_line(int fd)
 	return (get_next_line_loop(fd, &residual_string));
 }*/
 
-static char	*append_line()
+/*static char	*append_line()
 {
 	
 }
@@ -157,7 +157,7 @@ char	*get_next_line(fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	
-}
+}*/
 
 int	main(int argc, char **argv)
 {
