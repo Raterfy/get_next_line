@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/12 15:31:51 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:35:00 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,10 +140,15 @@ char	*get_next_line(int fd)
 	return (get_next_line_loop(fd, &residual_string));
 }*/
 
-char	*append_line(char *buffer)
+static char	*append_line()
 {
-	// 
+	
 }
+
+static char	*readline(int fd, char **residual_string)
+{
+	
+}	
 
 char	*get_next_line(fd)
 {
