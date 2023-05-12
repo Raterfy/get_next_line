@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/11 14:53:30 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 11:41:13 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,36 +16,47 @@ int	gnl_strlen(char *s)
 {
 	int	i;
 
+	if (!s)
+		return (0);
 	i = 0;
 	while (s[i])
 		i++;
 	return (i);
 }
 
+void	*gnl_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*dest_cpy;
+	const unsigned char	*src_cpy;
+
+	if (!dest || !src)
+		return (NULL);
+	dest_cpy = dest;
+	src_cpy = src;
+	while (n-- > 0)
+		*dest_cpy++ = *src_cpy++;
+	return (dest);
+}
+
 char	*gnl_strjoin(char *s1, char *s2)
 {
-	char	*s;
-	int		i;
-	int		j;
+	char	*new_str;
+	size_t	s1_len;
+	size_t	s2_len;
 
-	s = malloc(gnl_strlen(s1) + gnl_strlen(s2) + 1);
-	if (!s)
+	if (!s1 || !s2)
 		return (NULL);
-	i = 0;
-	while (s1[i])
-	{
-		s[i] = s1[i];
-	}
-	free (s1);
-	j = 0;
-	while (s2[j])
-	{
-		s[i + j] = s2[j];
-		j++;
-	}
-	s[i + j] = '\0';
-	return (s);
+	s1_len = gnl_strlen(s1);
+	s2_len = gnl_strlen(s2);
+	new_str = malloc(s1_len + s2_len + 1);
+	if (new_str == NULL)
+		return (NULL);
+	gnl_memcpy(new_str, s1, s1_len);
+	gnl_memcpy(new_str + s1_len, s2, s2_len);
+	new_str[s1_len + s2_len] = '\0';
+	return (new_str);
 }
+
 
 void	*gnl_realloc(void *ptr, size_t size)
 {
@@ -78,16 +89,22 @@ void	*gnl_realloc(void *ptr, size_t size)
 
 char	*gnl_strchr(const char *s, int c)
 {
+	unsigned char	character;
+
+	character = c;
+	if (!s)
+		return (NULL);
 	while (*s)
 	{
-		if (*s == c)
+		if (*s == character)
 			return ((char *)s);
-		s++;
+		++s;
 	}
-	if (*s == c)
+	if (character == '\0')
 		return ((char *)s);
 	return (NULL);
 }
+
 
 char	*gnl_strncpy(char *dest, const char *src, size_t n)
 {
@@ -127,7 +144,7 @@ char	*gnl_strdup(const char *s)
 		i++;
 	}
 	str[i] = '\0';
-	return (NULL);
+	return (str);
 }
 
 char	*gnl_strcpy(char *dest, const char *src)
