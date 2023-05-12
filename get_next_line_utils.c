@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/12 13:04:02 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 14:18:36 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,36 +61,6 @@ char	*gnl_strjoin(char *s1, char *s2)
 	return (new_str);
 }
 
-
-void	*gnl_realloc(void *ptr, size_t size)
-{
-	void	*new_ptr;
-	char	*p;
-	char	*q;
-	size_t	i;
-
-	i = 0;
-	if (!ptr)
-		return (malloc(size));
-	if (size == 0)
-	{
-		free(ptr);
-		return (NULL);
-	}
-	new_ptr = malloc(size);
-	if (!new_ptr)
-		return (NULL);
-	p = (char *)ptr;
-	q = (char *)new_ptr;
-	while (i < size && i < sizeof(*ptr))
-	{
-		q[i] = p[i];
-		i++;
-	}
-	free(ptr);
-	return (new_ptr);
-}
-
 char	*gnl_strchr(const char *s, int c)
 {
 	unsigned char	character;
@@ -112,51 +82,22 @@ char	*gnl_strchr(const char *s, int c)
 	return (NULL);
 }
 
-
 char	*gnl_strncpy(char *dest, const char *src, size_t n)
 {
-	size_t	i;
+    size_t i;
 
-	if ((!src) || (!dest))
-		return (NULL);
 	i = 0;
-	while (src[i] && i < n)
+	while (i < n && src[i] != '\0')
 	{
 		dest[i] = src[i];
 		i++;
 	}
-	while (i < n)
+    while (i < n)
 	{
 		dest[i] = '\0';
 		i++;
 	}
 	return (dest);
-}
-
-char	*gnl_substr(char const *s, unsigned int start, size_t len)
-{
-	char	*sub;
-	size_t	i;
-	size_t	s_len;
-
-	if (!s)
-		return (NULL);
-	s_len = ft_strlen(s);
-	if (start >= s_len)
-		return (ft_strdup(""));
-	if (s_len - start < len)
-		len = s_len - start;
-	sub = malloc(sizeof(char) * (len + 1));
-	if (!sub)
-		return (NULL);
-	i = 0;
-	while (i < len && s[start + i])
-	{
-		sub[i] = s[start + i];
-		i++;
-	}
-	sub[i] = '\0';
-	return (sub);
 }
 
 char	*gnl_strdup(const char *s)
@@ -182,14 +123,4 @@ char	*gnl_strdup(const char *s)
 	}
 	str[i] = '\0';
 	return (str);
-}
-
-char	*gnl_strcpy(char *dest, const char *src)
-{
-	if (!src)
-		return (NULL);
-	while (*src)
-		*dest++ = *src++;
-	*dest = '\0';
-	return (dest);
 }

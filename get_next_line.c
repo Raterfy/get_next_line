@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/12 13:01:34 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/12 15:31:51 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,7 @@ char	*get_next_line(int fd)
 	return (line);
 }*/
 
-static int	read_buffer(int fd, char *buffer, char **residual_string)
+/*static int	read_buffer(int fd, char *buffer, char **residual_string)
 {
 	int	bytes_read;
 
@@ -76,7 +76,7 @@ static int	read_buffer(int fd, char *buffer, char **residual_string)
 	if (!residual_string)
 		*residual_string = gnl_strdup("");
 	*residual_string = gnl_strjoin(*residual_string, buffer);
-//	free(buffer);
+	//free(buffer);
 	return (bytes_read);
 }
 
@@ -85,11 +85,12 @@ static char	*extract_line(char **residual_string)
 	char	*new_line;
 	char	*tmp;
 
+	//extract line doesn't extract the line
 	new_line = gnl_strchr(*residual_string, '\n');
 	//printf("new line = %s\n", new_line);
 	if (new_line)
 	{
-		tmp = gnl_strdup(new_line + 1);
+		tmp = gnl_strncpy(*residual_string, new_line + 1, gnl_strlen(new_line));
 		if (!tmp)
 			return (NULL);
 	}
@@ -137,6 +138,20 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	return (get_next_line_loop(fd, &residual_string));
+}*/
+
+char	*append_line(char *buffer)
+{
+	// 
+}
+
+char	*get_next_line(fd)
+{
+	static char	*residual_string;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (NULL);
+	
 }
 
 int	main(int argc, char **argv)
