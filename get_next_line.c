@@ -6,11 +6,25 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/14 14:59:16 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/14 16:48:02 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+void	*ft_memcpy(void *dest, const void *src, size_t n)
+{
+	unsigned char		*dest_cpy;
+	const unsigned char	*src_cpy;
+
+	if (!dest)
+		return (NULL);
+	dest_cpy = dest;
+	src_cpy = src;
+	while (n-- > 0)
+		*dest_cpy++ = *src_cpy++;
+	return (dest);
+}
 
 char	*get_next_line(int fd)
 {
@@ -33,7 +47,10 @@ char	*get_next_line(int fd)
 	}
 	if (ret == -1 || (!ret && !rest))
 		return (NULL);
-	line = ft_substr(rest, 0, ft_strchr(rest, '\n') - rest + 1);
+	if (ft_strchr(rest, '\n'))
+		line = ft_substr(rest, 0, ft_strchr(rest, '\n') - rest + 1);
+	else
+		line = ft_strdup(rest);
 	tmp = rest;
 	rest = ft_strdup(ft_strchr(rest, '\n') + 1);
 	free(tmp);

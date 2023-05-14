@@ -6,15 +6,15 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/14 14:58:38 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/14 17:04:57 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-size_t	ft_strlen(const char *s)
+int	ft_strlen(const char *s)
 {
-	size_t	i;
+	int	i;
 
 	i = 0;
 	while (s[i])
@@ -24,6 +24,8 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(const char *s, int c)
 {
+	if (s == NULL)
+		return (NULL);
 	while (*s != c)
 	{
 		if (!*s)
@@ -55,7 +57,8 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (NULL);
 	if ((int)start > ft_strlen(s))
 		return (ft_strdup(""));
-	if (!(substr = (char *)malloc(sizeof(char) * (len + 1))))
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
 		return (NULL);
 	i = 0;
 	while (i < len && s[start])
@@ -78,7 +81,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		return (NULL);
 	len1 = ft_strlen(s1);
 	len2 = ft_strlen(s2);
-	if (!(joined = (char *)malloc(sizeof(char) * (len1 + len2 + 1))))
+	joined = malloc(sizeof(char) * (len1 + len2 + 1));
+	if (!joined)
 		return (NULL);
 	ft_memcpy(joined, s1, len1);
 	ft_memcpy(joined + len1, s2, len2);
