@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/14 15:17:37 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/14 22:54:39 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,11 +25,10 @@
 # include <stdio.h>
 # include <stddef.h>
 
-int	ft_strlen(const char *s);
+size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
 char	*ft_strdup(const char *s1);
-void	*ft_memcpy(void *dest, const void *src, size_t n);
+char	*ft_substr(char const *s, unsigned int start, size_t len);
 
 #endif
