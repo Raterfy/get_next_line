@@ -6,95 +6,96 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/14 21:50:22 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/15 12:36:52 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-/*
-static char *get_residual(int fd, char *residual_string)
-{
-	char	*buffer;
-	char	*chr;
-	char	*joined;
-	int		i;
 
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	chr = ft_strchr(residual_string, '\n');
-	while (i != 0 && !chr)
-	{
-		i = 
-	}
+char	*get_line(char *line)
+{
+	int	i;
+
+	i = 0;
+	while (line[i] && line[i] != '\n')
+		i++;
+	i++;
+	line[i] = '\0';
+	return (line);
 }
 
-static char	*get_line(char *residual_string)
+char	*get_line_end(char *line, char *buffer)
 {
-	char	*residual_tmp;
-	int		i;
+	int	i;
+	int	j;
 
 	i = 0;
-	while (residual_string[i] == NULL)
-		return (NULL);
-	while (residual_string[i] && residual_string[i] != '\n')
+	j = 0;
+	while (line[i] && line[i] != '\n')
 		i++;
-	residual_tmp = malloc(sizeof(char) * (i + 2));
-	if (residual_tmp == NULL)
-		return (NULL);
-	i = 0;
-	while (residual_string[i] && residual_string[i] != '\n')
+	if (line[i] != '\n')
 	{
-		residual_tmp[i] = residual_string[i];
 		i++;
+		while (line[i])
+		{
+			buffer[j] = line[i];
+			i++;
+			j++;
+		}
 	}
-	if (residual_string[i] == '\n')
-	{
-		residual_tmp[i] = residual_string[i];
-		i++;
-	}
-	residual_tmp = '\0';
-	return (residual_string);
-}*/
+	buffer[j] = '\0';
+	return (buffer);
+}
 
-char	*get_next_line(int fd)
+char	*get_read_line(int fd, char *buffer, char *line)
 {
-	static char	*residual_string;
-	char		*line;
-	char		*buffer;
-	int			read_byte;
+	int	tmp;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	read_byte = read(fd, buffer, BUFFER_SIZE);
-	while (read_byte > 0)
+	tmp = 1;
+	line = ft_strjoin(line, buffer);
+	while (ft_strchr(line, '\n') && tmp != 0)
 	{
-		buffer[read_byte] = '\0';
-		residual_string = ft_strjoin(residual_string, buffer);
-		if (ft_strchr(buffer, '\n'))
-			break ;
+		tmp = read(fd, buffer, BUFFER_SIZE);
+		if (tmp == -1)
+			return (NULL);
+		buffer[tmp] = '\0';
+		line = ft_strjoin(line, buffer);
 	}
-	free(buffer);
-	if (read_byte < 0 || !residual_string)
-		return (NULL);
-	line = ft_substr(residual_string, 0, ft_strchr(residual_string, '\n') - residual_string);
-	residual_string = ft_strdup(residual_string + ft_strlen(line) + 1);
-	if (!line || !residual_string)
+	if (ft_strchr(line, '\n'))
+	{
+		buffer = get_line_end(line, buffer);
+		line = get_line(line);
+	}
+	if (line == NULL)
 		return (NULL);
 	return (line);
 }
 
+char	*get_next_line(int fd)
+{
+	static char	buffer[BUFFER_SIZE + 1];
+	char		*line;
+
+	line = NULL;
+	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
+		return (NULL);
+	line = get_read_line(fd, line, buffer);
+	if (line[0] == '\0')
+	{
+		free(line);
+		return (NULL);
+	}
+	return (line);
+}
 
 int	main(int ac, char **av)
 {
 	int		fd;
 	char	*line;
+	(void)ac;
 
 	fd = open(av[1], O_RDONLY);
 	line = get_next_line(fd);
-	if (ac < 2)
-		return (NULL);
 	while (line)
 	{
 		printf("%s\n", line);
