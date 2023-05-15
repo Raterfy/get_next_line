@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/15 12:36:52 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/15 13:10:19 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ char	*get_read_line(int fd, char *buffer, char *line)
 		buffer = get_line_end(line, buffer);
 		line = get_line(line);
 	}
-	if (line == NULL)
+	if (!line)
 		return (NULL);
 	return (line);
 }
@@ -88,13 +88,12 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(int ac, char **av)
+int	main()
 {
 	int		fd;
 	char	*line;
-	(void)ac;
 
-	fd = open(av[1], O_RDONLY);
+	fd = open("test.txt", O_RDONLY);
 	line = get_next_line(fd);
 	while (line)
 	{
