@@ -6,100 +6,100 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/15 13:10:19 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/16 18:33:06 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+#include <unistd.h>
+#include <stdlib.h>
+#include <string.h>
 
-char	*get_line(char *line)
+#define BUFFER_SIZE 42
+
+char *get_next_line(int fd)
 {
-	int	i;
+    static char buffer[BUFFER_SIZE + 1];
+    static char *remainder = NULL;
+    char *line = NULL;
+    int bytes_read = 0;
+    int i = 0;
 
-	i = 0;
-	while (line[i] && line[i] != '\n')
-		i++;
-	i++;
-	line[i] = '\0';
-	return (line);
+    // Check if there is a remainder from a previous call
+    if (remainder)
+    {
+        line = remainder;
+        remainder = NULL;
+        return line;
+    }
+    // Read from the file descriptor until a newline or the end of file is reached
+    while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
+    {
+        buffer[bytes_read] = '\0';  // Null-terminate the buffer
+        // Search for newline character
+        for (i = 0; i < bytes_read; i++)
+        {
+            if (buffer[i] == '\n')
+            {
+                line = malloc(i + 2);  // Allocate memory for the line
+                if (!line)
+                    return NULL;
+                // Copy the line from the buffer
+                line = strncpy(line, buffer, i + 1);
+                line[i + 1] = '\0';  // Null-terminate the line
+
+                // Save the remainder for future calls
+                remainder = malloc(bytes_read - i);
+                if (!remainder)
+                {
+                    free(line);
+                    return NULL;
+                }
+                remainder = strncpy(remainder, buffer + i + 1, bytes_read - i);
+                remainder[bytes_read - i - 1] = '\0';  // Null-terminate the remainder
+                return line;
+            }
+        }
+        // No newline found, append buffer to line
+        char *temp = line;
+        line = malloc(bytes_read + i + 1);  // Allocate memory for the combined line
+        if (!line)
+        {
+            free(temp);
+            return NULL;
+        }
+        // Copy the contents of the previous line
+        if (temp)
+        {
+            line = strncpy(line, temp, i);
+            free(temp);
+        }
+        // Copy the buffer to the line
+        line = strncat(line, buffer, bytes_read);
+    }
+    // Check or errors or end of file
+    if (bytes_read == -1 || (bytes_read == 0 && line == NULL))
+    {
+        free(line);
+        return NULL;
+    }
+    return line;  // Return the line
 }
 
-char	*get_line_end(char *line, char *buffer)
+int main(void)
 {
-	int	i;
-	int	j;
-
-	i = 0;
-	j = 0;
-	while (line[i] && line[i] != '\n')
-		i++;
-	if (line[i] != '\n')
-	{
-		i++;
-		while (line[i])
-		{
-			buffer[j] = line[i];
-			i++;
-			j++;
-		}
-	}
-	buffer[j] = '\0';
-	return (buffer);
-}
-
-char	*get_read_line(int fd, char *buffer, char *line)
-{
-	int	tmp;
-
-	tmp = 1;
-	line = ft_strjoin(line, buffer);
-	while (ft_strchr(line, '\n') && tmp != 0)
-	{
-		tmp = read(fd, buffer, BUFFER_SIZE);
-		if (tmp == -1)
-			return (NULL);
-		buffer[tmp] = '\0';
-		line = ft_strjoin(line, buffer);
-	}
-	if (ft_strchr(line, '\n'))
-	{
-		buffer = get_line_end(line, buffer);
-		line = get_line(line);
-	}
-	if (!line)
-		return (NULL);
-	return (line);
-}
-
-char	*get_next_line(int fd)
-{
-	static char	buffer[BUFFER_SIZE + 1];
-	char		*line;
-
-	line = NULL;
-	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, buffer, 0) == -1)
-		return (NULL);
-	line = get_read_line(fd, line, buffer);
-	if (line[0] == '\0')
-	{
-		free(line);
-		return (NULL);
-	}
-	return (line);
-}
-
-int	main()
-{
-	int		fd;
-	char	*line;
-
-	fd = open("test.txt", O_RDONLY);
-	line = get_next_line(fd);
-	while (line)
-	{
-		printf("%s\n", line);
-		free(line);
-	}
-	close(fd);
-	return (0);
+    int fd = open("test.txt", O_RDONLY);
+    if (fd == -1)
+    {
+        perror("Error opening file");
+        return (1);
+    }
+    char    *line = NULL;
+    while ((line = get_next_line(fd)) != NULL)
+    {
+        printf("%s\n", line);
+        free(line);
+    }
+    close(fd);
+    return (0);
 }

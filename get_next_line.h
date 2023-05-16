@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/14 22:54:39 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/16 18:29:45 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
+# include <string.h>
 
 size_t	ft_strlen(const char *s);
 char	*ft_strchr(const char *s, int c);
