@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:15:23 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/17 17:50:09 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/17 17:56:50 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -202,6 +202,13 @@ char	*get_next_line(int fd)
 	extract_line(residual, &line);
 	// 3. clean residual
 	clean_residual(&residual);
+	if (line[0] == '\0')
+	{
+		free_residual(residual);
+		residual = NULL;
+		free(line);
+		return (NULL);
+	}
 	return (line);
 }
 
