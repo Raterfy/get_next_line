@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/15 12:57:53 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/17 12:47:02 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,25 +55,25 @@ char	*ft_strdup(const char *src)
 char	*ft_strjoin(char const *s1, char const *s2)
 {
 	size_t	len;
-	char	*res;
+	char	*joined;
 	int		i;
 	int		j;
 
 	if (!s1 || !s2)
-		return (0x0);
+		return (NULL);
 	i = 0;
 	j = 0;
 	len = ft_strlen(s1) + ft_strlen(s2);
-	res = malloc(sizeof(char) * (len + 1));
-	if (!res)
+	joined = malloc(sizeof(char) * (len + 1));
+	if (!joined)
 		return (NULL);
 	while (s1[i])
-		res[j++] = s1[i++];
+		joined[j++] = s1[i++];
 	i = 0;
 	while (s2[i])
-		res[j++] = s2[i++];
-	res[j] = '\0';
-	return (res);
+		joined[j++] = s2[i++];
+	joined[j] = '\0';
+	return (joined);
 }
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
@@ -83,7 +83,7 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 	unsigned long		len_src;
 
 	if (!s)
-		return (0x0);
+		return (NULL);
 	len_src = ft_strlen(s);
 	if (start >= len_src)
 		return (ft_strdup(""));

@@ -6,13 +6,13 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/16 18:29:45 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/17 12:46:18 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-
+# define FD_MAX 256
 # ifndef BUFFER_SIZE	
 #  define BUFFER_SIZE 42
 # endif
