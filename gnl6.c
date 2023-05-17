@@ -6,13 +6,33 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 13:15:23 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/17 17:56:50 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/17 18:14:02 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-int	found_newline(t_list *residual)
+size_t	ft_strlen(const char *str)
+{
+	size_t	i;
+
+	i = 0;
+	while (str[i])
+		i++;
+	return (i);
+}
+
+t_list	*ft_lst_last(t_list *residual)
+{
+	t_list	*current;
+
+	current = residual;
+	while (current && current->next)
+		current = current->next;
+	return (current);
+}
+
+int	find_newline(t_list *residual)
 {
 	int		i;
 	t_list	*current;
@@ -30,15 +50,6 @@ int	found_newline(t_list *residual)
 	return (0);
 }
 
-t_list	*ft_lst_last(t_list *residual)
-{
-	t_list	*current;
-
-	current = residual;
-	while (current && current->next)
-		current = current->next;
-	return (current);
-}
 
 void	free_residual(t_list *residual)
 {
@@ -76,7 +87,7 @@ void	create_line(char **line, t_list *residual)
 		}
 		residual = residual->next;
 	}
-	line = malloc(sizeof(char) * (len + 1);
+	*line = malloc(sizeof(char) * (len + 1));
 }
 
 void	clean_residual(t_list **residual)
@@ -92,11 +103,11 @@ void	clean_residual(t_list **residual)
 	clean_node->next = NULL;
 	last = ft_lst_last(*residual);
 	i = 0;
-	while (last->content[i] && last->content != '\n')
+	while (last->content[i] && last->content[i] != '\n')
 		i++;
 	if (last->content && last->content[i] == '\n')
 		i++;
-	clean_node->content = malloc(sizeof(char) * (ft_strlen(last->content) - i) + 1);
+	clean_node->content = malloc(sizeof(char) * ((ft_strlen(last->content) - i) + 1));
 	if (clean_node == NULL)
 		return ;
 	j = 0;
@@ -174,7 +185,7 @@ void	read_and_residual(int fd, t_list **residual, int *byte_read)
 		if (buffer == NULL)
 			return ;
 		*byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (*residual == NULL && *byte_read == 0 || *byte_read < 0)
+		if ((*residual == NULL && *byte_read == 0) || *byte_read < 0)
 		{
 			free(buffer);
 			return ;
