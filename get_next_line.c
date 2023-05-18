@@ -5,101 +5,181 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/27 18:32:48 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/16 18:33:06 by robhak           ###   ########.fr       */
+/*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
+/*   Updated: 2023/05/18 16:58:24 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
-#include <unistd.h>
 #include <stdlib.h>
-#include <string.h>
-
+#include <stdio.h>
+#include <unistd.h>
+#include <fcntl.h>
 #define BUFFER_SIZE 42
 
-char *get_next_line(int fd)
+size_t	ft_strlen(const char *s)
 {
-    static char buffer[BUFFER_SIZE + 1];
-    static char *remainder = NULL;
-    char *line = NULL;
-    int bytes_read = 0;
-    int i = 0;
+	size_t	i;
 
-    // Check if there is a remainder from a previous call
-    if (remainder)
-    {
-        line = remainder;
-        remainder = NULL;
-        return line;
-    }
-    // Read from the file descriptor until a newline or the end of file is reached
-    while ((bytes_read = read(fd, buffer, BUFFER_SIZE)) > 0)
-    {
-        buffer[bytes_read] = '\0';  // Null-terminate the buffer
-        // Search for newline character
-        for (i = 0; i < bytes_read; i++)
-        {
-            if (buffer[i] == '\n')
-            {
-                line = malloc(i + 2);  // Allocate memory for the line
-                if (!line)
-                    return NULL;
-                // Copy the line from the buffer
-                line = strncpy(line, buffer, i + 1);
-                line[i + 1] = '\0';  // Null-terminate the line
-
-                // Save the remainder for future calls
-                remainder = malloc(bytes_read - i);
-                if (!remainder)
-                {
-                    free(line);
-                    return NULL;
-                }
-                remainder = strncpy(remainder, buffer + i + 1, bytes_read - i);
-                remainder[bytes_read - i - 1] = '\0';  // Null-terminate the remainder
-                return line;
-            }
-        }
-        // No newline found, append buffer to line
-        char *temp = line;
-        line = malloc(bytes_read + i + 1);  // Allocate memory for the combined line
-        if (!line)
-        {
-            free(temp);
-            return NULL;
-        }
-        // Copy the contents of the previous line
-        if (temp)
-        {
-            line = strncpy(line, temp, i);
-            free(temp);
-        }
-        // Copy the buffer to the line
-        line = strncat(line, buffer, bytes_read);
-    }
-    // Check or errors or end of file
-    if (bytes_read == -1 || (bytes_read == 0 && line == NULL))
-    {
-        free(line);
-        return NULL;
-    }
-    return line;  // Return the line
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
 }
 
-int main(void)
+char	*ft_strchr(char *s, int c)
 {
-    int fd = open("test.txt", O_RDONLY);
-    if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-    char    *line = NULL;
-    while ((line = get_next_line(fd)) != NULL)
-    {
-        printf("%s\n", line);
-        free(line);
-    }
-    close(fd);
-    return (0);
+	int	i;
+
+	i = 0;
+	if (!s)
+		return (0);
+	if (c == '\0')
+		return ((char *)&s[ft_strlen(s)]);
+	while (s[i] != '\0')
+	{
+		if (s[i] == (char) c)
+			return ((char *)&s[i]);
+		i++;
+	}
+	return (0);
 }
+
+char	*ft_strjoin(char *res, char *buffer)
+{
+	char	*str;
+	size_t	i;
+	size_t	j;
+
+	i = -1;
+	j = 0;
+	if (!res)
+	{
+		res = malloc(sizeof(char) * 1);
+		res[0] = '\0';
+	}
+	if (!buffer || !res)
+		return (NULL);
+	str = malloc(sizeof(char) * ((ft_strlen(buffer) + 1) + ft_strlen(res)));
+	if (str == 0)
+		return (NULL);
+	if (res)
+		while (res[++i] != '\0')
+			str[i] = res[i];
+	while (buffer[j] != '\0')
+		str[i++] = buffer[j++];
+	str[ft_strlen(res) + ft_strlen(buffer)] = '\0';
+	free(res);
+	return (str);
+}
+
+char	*new_res(char *res)
+{
+	int		i;
+	int		j;
+	char	*buffer;
+
+	i = 0;
+	while (res[i] && res[i] != '\n')
+		i++;
+	if (!res[i])
+	{
+		free(res);
+		return (NULL);
+	}
+	buffer = malloc(sizeof(char) * (ft_strlen(res) - i + 1));
+	if (!buffer)
+		return (NULL);
+	i++;
+	j = 0;
+	while (res[i])
+		buffer[j++] = res[i++];
+	buffer[j] = '\0';
+	free(res);
+	return (buffer);
+}
+
+char	*get_line(char *res)
+{
+	char	*buffer;
+	int		i;
+
+	i = 0;
+	if (!res[i])
+		return (NULL);
+	while (res[i] != '\n' && res[i])
+		i++;
+	buffer = malloc(sizeof(char) * (i + 2));
+	if (!buffer)
+		return (NULL);
+	i = 0;
+	while (res[i] != '\n' && res[i])
+	{
+		buffer[i] = res[i];
+		i++;
+	}
+	if (res[i] == '\n')
+	{
+		buffer[i] = res[i];
+		i++;
+	}
+	buffer[i] = '\0';
+	return (buffer);
+}
+
+char	*residual_left(int fd, char *res)
+{
+	char	*buffer;
+	int		byte_read;
+
+	byte_read = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	while (byte_read != 0 && !ft_strchr(res, '\n'))
+	{
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[byte_read] = '\0';
+		res = ft_strjoin(res, buffer);
+	}
+	free(buffer);
+	return (res);
+}
+
+char	*get_next_line(int fd)
+{
+	static char	*res;
+	char		*line;
+
+	if (fd < 0 || BUFFER_SIZE <= 0)
+		return (0);
+	res = residual_left(fd, res);
+	if (!res)
+		return (NULL);
+	line = get_line(res);
+	res = new_res(res);
+	return (line);
+}
+
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
+
+// 	fd = open("test.txt", O_RDONLY);
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (line == NULL)
+// 			break ;
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	return (0);
+// }

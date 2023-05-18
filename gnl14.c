@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 14:37:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 15:13:46 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 15:30:07 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	main(void)
 	line = get_next_line(fd);
 	while (line)
 	{
-		printf("%s", line);
+		printf("%s\n", line);
     	free(line);
 		line = get_next_line(fd);
 	}

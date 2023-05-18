@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 11:50:02 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 15:55:10 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,11 +41,11 @@
 // }				t_list;
 
 
-size_t	ft_strlen(const char *s);
-char	*ft_strchr(const char *s, int c);
-char	*ft_strjoin(char const *s1, char const *s2);
-char	*ft_strdup(const char *s1);
-char	*ft_substr(char const *s, unsigned int start, size_t len);
-char	*get_next_line(int fd);
+// size_t	ft_strlen(const char *s);
+// char	*ft_strchr(const char *s, int c);
+// char	*ft_strjoin(char const *s1, char const *s2);
+// char	*ft_strdup(const char *s1);
+// char	*ft_substr(char const *s, unsigned int start, size_t len);
+// char	*get_next_line(int fd);
 
 #endif
