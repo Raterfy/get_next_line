@@ -6,38 +6,34 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:02:46 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:24:16 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*ft_strjoin(char *res, char *buffer)
+char	*residual_left(int fd, char *res)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	char	*buffer;
+	int		byte_read;
 
-	i = -1;
-	j = 0;
-	if (!res)
+	byte_read = 1;
+	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	if (!buffer)
+		return (NULL);
+	while (byte_read != 0 && !ft_strchr(res, '\n'))
 	{
-		res = malloc(sizeof(char) * 1);
-		res[0] = '\0';
+		byte_read = read(fd, buffer, BUFFER_SIZE);
+		if (byte_read == -1)
+		{
+			free(buffer);
+			return (NULL);
+		}
+		buffer[byte_read] = '\0';
+		res = ft_strjoin(res, buffer);
 	}
-	if (!buffer || !res)
-		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(buffer) + 1) + ft_strlen(res)));
-	if (str == 0)
-		return (NULL);
-	if (res)
-		while (res[++i] != '\0')
-			str[i] = res[i];
-	while (buffer[j] != '\0')
-		str[i++] = buffer[j++];
-	str[ft_strlen(res) + ft_strlen(buffer)] = '\0';
-	free(res);
-	return (str);
+	free(buffer);
+	return (res);
 }
 
 char	*new_res(char *res)
@@ -94,30 +90,6 @@ char	*get_line(char *res)
 	return (buffer);
 }
 
-char	*residual_left(int fd, char *res)
-{
-	char	*buffer;
-	int		byte_read;
-
-	byte_read = 1;
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
-	if (!buffer)
-		return (NULL);
-	while (byte_read != 0 && !ft_strchr(res, '\n'))
-	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
-		{
-			free(buffer);
-			return (NULL);
-		}
-		buffer[byte_read] = '\0';
-		res = ft_strjoin(res, buffer);
-	}
-	free(buffer);
-	return (res);
-}
-
 char	*get_next_line(int fd)
 {
 	static char	*res;
@@ -133,19 +105,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-// int	main(void)
-// {
-// 	int		fd;
-// 	char	*line;
+int	main(void)
+{
+	int		fd;
+	char	*line;
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	while (1)
-// 	{
-// 		line = get_next_line(fd);
-// 		if (line == NULL)
-// 			break ;
-// 		printf("%s", line);
-// 		free(line);
-// 	}
-// 	return (0);
-// }
+	fd = open("test.txt", O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break ;
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
+}
