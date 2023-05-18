@@ -6,11 +6,101 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/17 18:18:25 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/17 21:56:15 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 09:46:09 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
+
+size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
+
+char	*ft_strchr(const char *s, int c)
+{
+	if (!s || !c)
+		return (NULL);
+	while (*s != c)
+	{
+		if (!*s)
+			return (NULL);
+		s++;
+	}
+	return ((char *)s);
+}
+
+char	*ft_strdup(const char *src)
+{
+	size_t	len;
+	char	*dest;
+
+	len = ft_strlen(src) + 1;
+	dest = malloc(sizeof(char) * len);
+	if (!dest)
+		return (NULL);
+	while (*src)
+	{
+		*dest++ = *src++;
+	}
+	*dest = '\0';
+	return (dest);
+}
+
+char	*ft_strjoin(char const *s1, char const *s2)
+{
+	size_t	len;
+	char	*joined;
+	int		i;
+	int		j;
+
+	if (!s1 || !s2)
+		return (NULL);
+	i = 0;
+	j = 0;
+	len = ft_strlen(s1) + ft_strlen(s2);
+	joined = malloc(sizeof(char) * (len + 1));
+	if (!joined)
+		return (NULL);
+	while (s1[i])
+		joined[j++] = s1[i++];
+	i = 0;
+	while (s2[i])
+		joined[j++] = s2[i++];
+	joined[j] = '\0';
+	return (joined);
+}
+
+char	*ft_substr(char const *s, unsigned int start, size_t len)
+{
+	char				*substring;
+	unsigned int		i;
+	unsigned long		len_src;
+
+	if (!s)
+		return (NULL);
+	len_src = ft_strlen(s);
+	if (start >= len_src)
+		return (ft_strdup(""));
+	if (len_src - start < len)
+		len = len_src - start;
+	substring = malloc(sizeof(char) * (len + 1));
+	if (!substring)
+		return (NULL);
+	i = start;
+	while (i < start + len && s[i])
+	{
+		substring[i - start] = s[i];
+		i++;
+	}
+	substring[i - start] = '\0';
+	return (substring);
+}
 
 t_list	*ft_lstnew(int fd)
 {
@@ -124,4 +214,20 @@ char	*get_next_line(int fd)
 	if (get_line(&line, &current->content))
 		return (line);
 	return (line);
+}
+int main()
+{
+	int		fd;
+	char	*line;
+
+	fd = open("test.txt", O_RDONLY);
+	while (1)
+	{
+		line = get_next_line(fd);
+		if (line == NULL)
+			break;
+		printf("%s", line);
+		free(line);
+	}
+	return (0);
 }

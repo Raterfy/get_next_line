@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/17 18:23:45 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 09:32:56 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,11 +26,11 @@
 # include <stddef.h>
 # include <string.h>
 
-typedef struct s_list
-{
-	char			*content;
-	struct s_list	*next;
-}				t_list;
+// typedef struct s_list
+// {
+// 	char			*content;
+// 	struct s_list	*next;
+// }				t_list;
 
 typedef struct	s_list
 {
