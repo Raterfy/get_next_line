@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:55:18 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 20:13:57 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,19 @@ char	*residual_left(int fd, char *res)
 	char	*buffer;
 	int		byte_read;
 
-	byte_read = 1;
-	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	buffer = calloc(BUFFER_SIZE + 1, sizeof(char));
 	if (!buffer)
 		return (NULL);
-	while (byte_read != 0 && !ft_strchr(res, '\n'))
+	byte_read = read(fd, buffer, BUFFER_SIZE);
+	while (byte_read > 0 && !ft_strchr(res, '\n'))
 	{
-		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read < 0)
-		{
-			free(buffer);
-			return (NULL);
-		}
 		buffer[byte_read] = '\0';
 		res = ft_strjoin(res, buffer);
+		byte_read = read(fd, buffer, BUFFER_SIZE);
 	}
 	free(buffer);
+	if (byte_read < 0)
+		return (NULL);
 	return (res);
 }
 
@@ -90,7 +87,7 @@ char	*get_line(char *res)
 		return (NULL);
 	while (res[i] != '\n' && res[i])
 		i++;
-	buffer = malloc(sizeof(char) * (i + 2));
+	buffer = malloc(i + 2);
 	if (!buffer)
 		return (NULL);
 	i = 0;
@@ -131,19 +128,19 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int	main(void)
-{
-	int		fd;
-	char	*line;
+// int	main(void)
+// {
+// 	int		fd;
+// 	char	*line;
 
-	fd = open("test.txt", O_RDONLY);
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break ;
-		printf("%s", line);
-		free(line);
-	}
-	return (0);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	while (1)
+// 	{
+// 		line = get_next_line(fd);
+// 		if (line == NULL)
+// 			break ;
+// 		printf("%s", line);
+// 		free(line);
+// 	}
+// 	return (0);
+// }
