@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/17 12:47:02 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 11:49:32 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char				*substring;
+	char				*substr;
 	unsigned int		i;
 	unsigned long		len_src;
 
@@ -89,15 +89,15 @@ char	*ft_substr(char const *s, unsigned int start, size_t len)
 		return (ft_strdup(""));
 	if (len_src - start < len)
 		len = len_src - start;
-	substring = malloc(sizeof(char) * (len + 1));
-	if (!substring)
+	substr = malloc(sizeof(char) * (len + 1));
+	if (!substr)
 		return (NULL);
 	i = start;
 	while (i < start + len && s[i])
 	{
-		substring[i - start] = s[i];
+		substr[i - start] = s[i];
 		i++;
 	}
-	substring[i - start] = '\0';
-	return (substring);
+	substr[i - start] = '\0';
+	return (substr);
 }
