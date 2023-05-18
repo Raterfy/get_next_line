@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:05:50 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 19:24:13 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,46 +26,69 @@ size_t	ft_strlen(const char *s)
 
 char	*ft_strchr(char *s, int c)
 {
-	int	i;
-
-	i = 0;
 	if (!s)
 		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	while (s[i] != '\0')
+	while (*s != '\0')
 	{
-		if (s[i] == (char) c)
-			return ((char *)&s[i]);
-		i++;
+		if (*s == (char) c)
+			return ((char *)s);
+		s++;
 	}
+	if (c == '\0')
+		return ((char *)s);
 	return (0);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	void			*ptr;
+	size_t			total_size;
+	unsigned char	*p;
+
+	total_size = count * size;
+	if (size != 0 && total_size / size != count)
+		return (NULL);
+	ptr = malloc(total_size);
+	if (!ptr)
+		return (NULL);
+	p = (unsigned char *)ptr;
+	while (total_size-- > 0)
+			*p++ = 0;
+	return (ptr);
+}
+
+void	*ft_memcpy(void *dst, const void *src, size_t n)
+{
+	unsigned char		*ptr_dst;
+	const unsigned char	*ptr_src;
+
+	if (!dst && !src)
+		return (NULL);
+	ptr_dst = (unsigned char *)dst;
+	ptr_src = (const unsigned char *)src;
+	while (n--)
+		*ptr_dst++ = *ptr_src++;
+	return (dst);
 }
 
 char	*ft_strjoin(char *res, char *buffer)
 {
-	char	*str;
-	size_t	i;
-	size_t	j;
+	size_t	res_len;
+	size_t	buffer_len;
+	char	*joined;
 
-	i = -1;
-	j = 0;
 	if (!res)
-	{
-		res = malloc(sizeof(char) * 1);
-		res[0] = '\0';
-	}
+		res = ft_calloc(1, sizeof(char));
 	if (!buffer || !res)
 		return (NULL);
-	str = malloc(sizeof(char) * ((ft_strlen(buffer) + 1) + ft_strlen(res)));
-	if (str == 0)
+	res_len = ft_strlen(res);
+	buffer_len = ft_strlen(buffer);
+	joined = ft_calloc(res_len + buffer_len + 1, sizeof(char));
+	if (!joined)
 		return (NULL);
-	if (res)
-		while (res[++i] != '\0')
-			str[i] = res[i];
-	while (buffer[j] != '\0')
-		str[i++] = buffer[j++];
-	str[ft_strlen(res) + ft_strlen(buffer)] = '\0';
+	ft_memcpy(joined, res, res_len);
+	ft_memcpy(joined + res_len, buffer, buffer_len);
+	joined[res_len + buffer_len] = '\0';
 	free(res);
-	return (str);
+	return (joined);
 }

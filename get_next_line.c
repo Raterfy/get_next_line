@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:45:28 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:55:18 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ char	*residual_left(int fd, char *res)
 	return (res);
 }
 
+/*
+ * Cette fonction prend une chaîne `res` en argument et renvoie une 
+ * nouvelle chaîne contenant tous les caractères après le premier caractère 
+ * de saut de ligne (`'\n'`). Si aucun caractère de saut de ligne n'est trouvé,
+ * la fonction renvoie `NULL`.
+ */
 char	*new_res(char *res)
 {
 	int		i;
@@ -68,6 +74,12 @@ char	*new_res(char *res)
 	return (buffer);
 }
 
+/*
+ * Cette fonction prend une chaîne `res` en argument et renvoie une 
+ * nouvelle chaîne contenant tous les caractères
+ * jusqu'au premier caractère de saut de ligne (`'\n'`) inclus. 
+ * Si la chaîne `res` est vide, la fonction renvoie `NULL`.
+ */
 char	*get_line(char *res)
 {
 	char	*buffer;
@@ -96,6 +108,14 @@ char	*get_line(char *res)
 	return (buffer);
 }
 
+/*
+ * Cette fonction lit une ligne à partir d'un descripteur de fichier `fd` 
+ * et renvoie cette ligne sous forme de chaîne.
+ * La fonction utilise une variable statique `res` pour stocker les données 
+ * lues à partir du descripteur de fichier
+ * entre les appels à la fonction. Si `fd` est inférieur à 0 ou 
+ * si `BUFFER_SIZE` est inférieur ou égal à 0, la fonction renvoie 0.
+ */
 char	*get_next_line(int fd)
 {
 	static char	*res;
