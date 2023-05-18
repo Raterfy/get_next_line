@@ -6,12 +6,18 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:24:16 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:45:28 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
+/*
+ * Cette fonction lit des données à partir d'un descripteur de fichier `fd` 
+ * et les ajoute à la chaîne `res` jusqu'à ce qu'un caractère de saut de ligne 
+ * (`'\n'`) soit trouvé dans `res` ou que la fin du fichier soit atteinte. 
+ * La fonction renvoie une nouvelle chaîne contenant les données lues.
+*/
 char	*residual_left(int fd, char *res)
 {
 	char	*buffer;
@@ -24,7 +30,7 @@ char	*residual_left(int fd, char *res)
 	while (byte_read != 0 && !ft_strchr(res, '\n'))
 	{
 		byte_read = read(fd, buffer, BUFFER_SIZE);
-		if (byte_read == -1)
+		if (byte_read < 0)
 		{
 			free(buffer);
 			return (NULL);
@@ -76,7 +82,7 @@ char	*get_line(char *res)
 	if (!buffer)
 		return (NULL);
 	i = 0;
-	while (res[i] != '\n' && res[i])
+	while (res[i] && res[i] != '\n')
 	{
 		buffer[i] = res[i];
 		i++;
