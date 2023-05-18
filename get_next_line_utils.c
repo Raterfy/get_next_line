@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 11:49:32 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 15:25:20 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ size_t	ft_strlen(const char *s)
 {
 	size_t	i;
 
+	if (!s)
+		return (NULL);
 	i = 0;
 	while (s[i])
 		i++;
@@ -40,8 +42,8 @@ char	*ft_strdup(const char *src)
 	size_t	len;
 	char	*dest;
 
-	len = ft_strlen(src) + 1;
-	dest = malloc(sizeof(char) * len);
+	len = ft_strlen(src);
+	dest = malloc(sizeof(char) * (len + 1));
 	if (!dest)
 		return (NULL);
 	while (*src)
@@ -78,26 +80,26 @@ char	*ft_strjoin(char const *s1, char const *s2)
 
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
-	char				*substr;
-	unsigned int		i;
-	unsigned long		len_src;
+	char	*sub;
+	size_t	i;
+	size_t	s_len;
 
 	if (!s)
 		return (NULL);
-	len_src = ft_strlen(s);
-	if (start >= len_src)
+	s_len = ft_strlen(s);
+	if (start >= s_len)
 		return (ft_strdup(""));
-	if (len_src - start < len)
-		len = len_src - start;
-	substr = malloc(sizeof(char) * (len + 1));
-	if (!substr)
+	if (s_len - start < len)
+		len = s_len - start;
+	sub = malloc(sizeof(char) * (len + 1));
+	if (!sub)
 		return (NULL);
-	i = start;
-	while (i < start + len && s[i])
+	i = 0;
+	while (i < len && s[start + i])
 	{
-		substr[i - start] = s[i];
+		sub[i] = s[start + i];
 		i++;
 	}
-	substr[i - start] = '\0';
-	return (substr);
+	sub[i] = '\0';
+	return (sub);
 }
