@@ -6,14 +6,12 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 15:55:10 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:00:45 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-# define FD_MAX 256
-# define OPEN_MAX 256
 # ifndef BUFFER_SIZE	
 #  define BUFFER_SIZE 42
 # endif
@@ -27,25 +25,9 @@
 # include <stddef.h>
 # include <string.h>
 
-// typedef struct s_list
-// {
-// 	char			*content;
-// 	struct s_list	*next;
-// }				t_list;
-
-// typedef struct	s_list
-// {
-// 	int				fd;
-// 	char			*content;
-// 	struct s_list	*next;
-// }				t_list;
-
-
-// size_t	ft_strlen(const char *s);
-// char	*ft_strchr(const char *s, int c);
-// char	*ft_strjoin(char const *s1, char const *s2);
-// char	*ft_strdup(const char *s1);
-// char	*ft_substr(char const *s, unsigned int start, size_t len);
-// char	*get_next_line(int fd);
+char	*ft_strchr(char *s, int c);
+char	*ft_strjoin(char *res, char *buffer);
+size_t	ft_strlen(const char *s);
+char	*get_next_line(int fd);
 
 #endif

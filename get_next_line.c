@@ -6,45 +6,11 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 15:26:15 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 16:58:24 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/18 17:02:46 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <unistd.h>
-#include <fcntl.h>
-#define BUFFER_SIZE 42
-
-size_t	ft_strlen(const char *s)
-{
-	size_t	i;
-
-	if (!s)
-		return (0);
-	i = 0;
-	while (s[i])
-		i++;
-	return (i);
-}
-
-char	*ft_strchr(char *s, int c)
-{
-	int	i;
-
-	i = 0;
-	if (!s)
-		return (0);
-	if (c == '\0')
-		return ((char *)&s[ft_strlen(s)]);
-	while (s[i] != '\0')
-	{
-		if (s[i] == (char) c)
-			return ((char *)&s[i]);
-		i++;
-	}
-	return (0);
-}
+#include "get_next_line.h"
 
 char	*ft_strjoin(char *res, char *buffer)
 {
