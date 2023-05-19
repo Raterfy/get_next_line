@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/18 17:00:45 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/19 13:30:20 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 char	*ft_strchr(char *s, int c);
 char	*ft_strjoin(char *res, char *buffer);
 size_t	ft_strlen(const char *s);
+size_t	ft_strlcpy(char *dst, const char *src, size_t size);
+char	*ft_strdup(const char *s1);
 char	*get_next_line(int fd);
 
 #endif
