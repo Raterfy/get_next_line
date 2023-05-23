@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:48:28 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/19 20:00:41 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/23 14:16:32 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,10 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
 		return (NULL);
-	residual[MAX_FD] = read_and_store(fd, residual[MAX_FD]);
-	if (!residual[MAX_FD])
+	residual[fd] = read_and_store(fd, residual[fd]);
+	if (!residual[fd])
 		return (NULL);
-	line = get_line(residual[MAX_FD]);
-	residual[MAX_FD] = get_remaining_string(residual[MAX_FD]);
+	line = get_line(residual[fd]);
+	residual[fd] = get_remaining_string(residual[fd]);
 	return (line);
 }
