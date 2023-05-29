@@ -6,11 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2023/05/21 19:20:51 by robhak           ###   ########.fr       */
-=======
-/*   Updated: 2023/05/23 14:17:04 by robhak           ###   ########.fr       */
->>>>>>> c6d887cabcc8397c32aafb46c2f1a125e7c67035
+/*   Updated: 2023/05/29 13:32:25 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,5 +31,8 @@ char	*ft_strjoin(char *res, char *buffer);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t size);
 char	*get_next_line(int fd);
+char	*read_and_store(int fd, char *residual);
+char	*get_remaining_string(char *residual);
+char	*get_line(char *residual);
 
 #endif

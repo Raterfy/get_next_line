@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:27:43 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/23 21:10:56 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/29 15:29:01 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,20 +81,17 @@ char	*get_remaining_string(char *residual)
 	return (remaining_str);
 }
 
-/* 
-* Cette fonction prend en entrée un descripteur 
-* de fichier "fd" et une chaîne
-* de caractères "residual" et lit le contenu du fichier 
-* dans un buffer.
-* La fonction utilise la fonction read pour lire 
-* le contenu du fichier dans le tampon
-* et la fonction ft_strjoin pour ajouter le contenu du tampon 
-* à la chaîne "residual". 
-* La lecture continue jusqu'à ce qu'un caractère 
-* de nouvelle ligne '\n' soit trouvé dans 
-* la chaîne "residual" ou que la fin du fichier soit atteinte. 
-* Si une erreur se produit lors de la lecture, la fonction libère 
-* la mémoire allouée pour le tampon et renvoie NULL.
+/*
+** La fonction read_and_store lit des données à partir 
+** d'un descripteur de fichier et les stocke dans une chaîne 
+** de caractères résiduelle.
+** La fonction utilise un tampon pour lire les données par blocs 
+** de taille BUFFER_SIZE
+** et ajoute les données lues à la chaîne résiduelle en utilisant 
+** la fonction ft_strjoin.
+** La lecture s'arrête lorsque la fin du fichier est atteinte ou 
+** lorsqu'un caractère '\n' est trouvé dans la chaîne résiduelle.
+** Si une erreur se produit lors de la lecture, la fonction renvoie NULL.
 */
 char	*read_and_store(int fd, char *residual)
 {
