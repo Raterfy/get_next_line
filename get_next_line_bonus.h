@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:49:07 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/29 13:32:37 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:30:16 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 # ifndef BUFFER_SIZE	
 #  define BUFFER_SIZE 42
 # endif
-# define MAX_FD 64000
+# define MAX_FD 1024
 
 # include <sys/types.h>
 # include <sys/stat.h>
