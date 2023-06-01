@@ -6,40 +6,11 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:27:43 by robhak            #+#    #+#             */
-/*   Updated: 2023/06/01 23:19:44 by robhak           ###   ########.fr       */
+/*   Updated: 2023/06/01 23:27:02 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-
-/*
- * Extrait la ligne à partir de la chaîne de caractères donnée.
- * @param residual La chaîne de caractères contenant la ligne à extraire.
- * @return Un pointeur vers la ligne extraite, ou NULL si la chaîne est vide.
- */
-char	*get_line(char *residual)
-{
-	char	*line;
-	char	*line_end;
-	size_t	len;
-
-	if (!*residual)
-		return (NULL);
-	line_end = residual;
-	while (*line_end && *line_end != '\n')
-		line_end++;
-	len = line_end - residual;
-	line = malloc(sizeof(char) * (len + 2));
-	if (!line)
-		return (NULL);
-	ft_strlcpy(line, residual, len + 1);
-	if (*line_end == '\n')
-	{
-		line[len] = '\n';
-		line[len + 1] = '\0';
-	}
-	return (line);
-}
 
 /*
  * Récupère la partie restante d'une chaîne de caractères après avoir
@@ -70,6 +41,35 @@ char	*get_remaining_string(char *residual)
 	ft_strlcpy(remaining_str, line_end, remaining_len + 1);
 	free(residual);
 	return (remaining_str);
+}
+
+/*
+ * Extrait la ligne à partir de la chaîne de caractères donnée.
+ * @param residual La chaîne de caractères contenant la ligne à extraire.
+ * @return Un pointeur vers la ligne extraite, ou NULL si la chaîne est vide.
+ */
+char	*get_line(char *residual)
+{
+	char	*line;
+	char	*line_end;
+	size_t	len;
+
+	if (!*residual)
+		return (NULL);
+	line_end = residual;
+	while (*line_end && *line_end != '\n')
+		line_end++;
+	len = line_end - residual;
+	line = malloc(sizeof(char) * (len + 2));
+	if (!line)
+		return (NULL);
+	ft_strlcpy(line, residual, len + 1);
+	if (*line_end == '\n')
+	{
+		line[len] = '\n';
+		line[len + 1] = '\0';
+	}
+	return (line);
 }
 
 /*
