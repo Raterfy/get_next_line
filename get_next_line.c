@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:27:43 by robhak            #+#    #+#             */
-/*   Updated: 2023/06/01 22:37:50 by robhak           ###   ########.fr       */
+/*   Updated: 2023/06/01 23:19:44 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 /*
  * Extrait la ligne à partir de la chaîne de caractères donnée.
- * 
  * @param residual La chaîne de caractères contenant la ligne à extraire.
  * @return Un pointeur vers la ligne extraite, ou NULL si la chaîne est vide.
  */
