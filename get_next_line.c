@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/18 20:27:43 by robhak            #+#    #+#             */
-/*   Updated: 2023/06/01 21:28:53 by robhak           ###   ########.fr       */
+/*   Updated: 2023/06/01 22:37:50 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*get_remaining_string(char *residual)
 char	*read_and_store(int fd, char *residual)
 {
 	char	*buffer;
-	int		bytes_read;
+	ssize_t	bytes_read;
 
 	buffer = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (!buffer)

@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:19 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/23 14:16:50 by robhak           ###   ########.fr       */
+/*   Updated: 2023/06/01 22:35:54 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ char	*ft_strjoin(char *res, char *buffer)
 		return (NULL);
 	res_len = ft_strlen(res);
 	buffer_len = ft_strlen(buffer);
-	joined = malloc((res_len + buffer_len + 1) * sizeof(char));
+	joined = malloc(sizeof(char) * (res_len + buffer_len + 1));
 	if (!joined)
 		return (NULL);
 	ft_memcpy(joined, res, res_len);

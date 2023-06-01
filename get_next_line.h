@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/29 08:07:02 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/29 13:32:25 by robhak           ###   ########.fr       */
+/*   Updated: 2023/06/01 22:38:41 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <stddef.h>
-# include <string.h>
 // # define malloc(x) (0)
 
 char	*ft_strchr(char *s, int c);
