@@ -6,7 +6,7 @@
 /*   By: robhak <robhak@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/19 18:48:28 by robhak            #+#    #+#             */
-/*   Updated: 2023/05/23 14:16:32 by robhak           ###   ########.fr       */
+/*   Updated: 2023/05/30 15:46:53 by robhak           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ char	*get_next_line(int fd)
 	static char	*residual[MAX_FD];
 	char		*line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0 || fd > MAX_FD)
+	if (fd < 0 || BUFFER_SIZE <= 0 || fd >= MAX_FD)
 		return (NULL);
 	residual[fd] = read_and_store(fd, residual[fd]);
 	if (!residual[fd])
